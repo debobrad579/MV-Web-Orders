@@ -29,7 +29,7 @@ class Program
         Window? window = null;
         Button? continueBtn = null;
 
-        while (true)
+        for (int i = 0; i < 20; i++)
         {
             window = app.GetMainWindow(automation);
             continueBtn = window.FindFirstDescendant(cf.ByAutomationId("btnStartApplication")).AsButton();
@@ -45,22 +45,23 @@ class Program
 
         Menu? menu = null;
 
-        while (true)
+        for (int i = 0; i < 10; i++)
         {
             window = app.GetMainWindow(automation);
             menu = window.FindFirstDescendant(cf.ByName("MenuBar1")).AsMenu();
 
             if (menu != null && menu.BoundingRectangle.Top > 200)
             {
+                Thread.Sleep(500);
                 var menuRect = menu.BoundingRectangle;
                 var mousePos = Mouse.Position;
-                Mouse.Position = new Point(menuRect.Left + 150, menuRect.Top + 10);
-                Mouse.Click();
+                Mouse.Click(new Point(menuRect.Left + 150, menuRect.Top + 10));
+                Mouse.Click(new Point(menuRect.Left + 150, menuRect.Top + 285));
                 Mouse.Position = mousePos;
                 break;
             }
 
-            Thread.Sleep(500);
+            Thread.Sleep(2000);
         }
 
     }
